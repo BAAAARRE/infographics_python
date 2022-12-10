@@ -5,8 +5,7 @@ import plotly.io as pio
 from tools.load_data import load_data
 
 from config.plotly_styling import custom_template
-from tools import data_preparator as dp, graph_maker as gm
-from tools.pdf import CustomPDF
+from tools import data_preparator as dp, graph_maker as gm, pdf
 
 
 def main():
@@ -23,32 +22,32 @@ def main():
     data_raw_dict = load_data()
 
     # Prepare data
-    dp_gpp = dp.GameParticipationPreparator(data_raw_dict)
-    dp_gpp.header()
-    dp_gpp.participation()
-    dp_gpp.gender()
-    dp_gpp.age()
-    prepared_data_dict = dp_gpp.prepared_data_dict
+    dp_gp = dp.GameParticipationPreparator(data_raw_dict)
+    dp_gp.header()
+    dp_gp.participation()
+    dp_gp.gender()
+    dp_gp.age()
+    prepared_data_dict = dp_gp.prepared_data_dict
 
     # Graphs
-    gm_gpgm = gm.GameParticipationGraphMaker(prepared_data_dict, temp_dir, engine_plotly)
-    gm_gpgm.gauge_participation_rate()
-    gm_gpgm.plot_gender_donuts()
-    gm_gpgm.plot_bar_age()
+    gm_gp = gm.GameParticipationGraphMaker(prepared_data_dict, temp_dir, engine_plotly)
+    gm_gp.gauge_participation_rate()
+    gm_gp.plot_gender_donuts()
+    gm_gp.plot_bar_age()
 
     # Generate PDF
-    pdf = CustomPDF(prepared_data_dict, temp_dir)
-    pdf.initiate_pdf()
-    pdf.background()
-    pdf.game_name()
-    pdf.game_dates()
-    pdf.logo()
-    pdf.n_participants_and_registrants()
-    pdf.participation_rate()
-    pdf.gender()
-    pdf.teams()
-    pdf.age()
-    pdf.save_pdf()
+    pdf_gp = pdf.GameParticipationPdf(prepared_data_dict, temp_dir)
+    pdf_gp.initiate_pdf()
+    pdf_gp.background()
+    pdf_gp.game_name()
+    pdf_gp.game_dates()
+    pdf_gp.logo()
+    pdf_gp.n_participants_and_registered()
+    pdf_gp.participation_rate()
+    pdf_gp.gender()
+    pdf_gp.teams()
+    pdf_gp.age()
+    pdf_gp.save_pdf()
 
     # Remove temp directory
     shutil.rmtree(path=temp_dir, ignore_errors=True)
