@@ -4,11 +4,21 @@ import plotly.graph_objects as go
 
 class GameParticipationGraphMaker:
     def __init__(self, prepared_data_dict, temp_dir, engine_plotly):
+        """
+        Init variables
+        :param prepared_data_dict: dict. Prepared data
+        :param temp_dir: str. Path of temporary directory
+        :param engine_plotly: str. Name of engine plotly
+        """
         self.prepared_data_dict = prepared_data_dict
         self.temp_dir = temp_dir
         self.engine_plotly = engine_plotly
 
     def gauge_participation_rate(self):
+        """
+        Create a gauge chart of participation rate and save it to temporary directory
+        :return: go.Figure.
+        """
         rate = self.prepared_data_dict['game_participation']['participation_rate']
         fig = go.Figure(
             go.Indicator(
@@ -40,6 +50,9 @@ class GameParticipationGraphMaker:
         fig.write_image(os.path.join(self.temp_dir, "participation_rate.png"), scale=4, engine=self.engine_plotly)
 
     def plot_gender_donuts(self):
+        """
+        Create a donuts chart of gender distribution and save it to temporary directory
+        """
         df_gender_agg = self.prepared_data_dict['game_participation']['df_gender_agg']
         fig = go.Figure(
             data=[
@@ -62,6 +75,9 @@ class GameParticipationGraphMaker:
         fig.write_image(os.path.join(self.temp_dir, "genders_picto.png"), scale=4, engine=self.engine_plotly)
 
     def plot_bar_age(self):
+        """
+        Create a bar chart of age distribution and save it to temporary directory
+        """
         df_age_agg = self.prepared_data_dict['game_participation']['df_age_agg']
         fig = go.Figure(
             [
