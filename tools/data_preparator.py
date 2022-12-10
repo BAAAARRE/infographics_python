@@ -1,12 +1,19 @@
 class GameParticipationPreparator:
+    """
+    Class for transform raw game participation data to metrics
+    """
+
     def __init__(self, raw_data_dict):
+        """
+        Take as input raw data and init prepared data dict
+        :param raw_data_dict: dict. Raw data
+        """
         self.raw_data_dict = raw_data_dict
         self.prepared_data_dict = {}
 
     def header(self):
         """
-
-        :return:
+        Create header dict with name and full date, then add it to prepared data
         """
         df_game = self.raw_data_dict['df_game']
         name = df_game['name'][0]
@@ -17,8 +24,7 @@ class GameParticipationPreparator:
 
     def participation(self):
         """
-
-        :return:
+        Create game participation dict with n_subscribed, n_participants, participation_rate and n_teams, then add it to prepared data
         """
         df_game = self.raw_data_dict['df_game']
         df_player = self.raw_data_dict['df_player']
@@ -33,17 +39,20 @@ class GameParticipationPreparator:
 
     def gender(self):
         """
-
-        @param df_player_activity_agg:
-        @return:
+        Update game participation dict with df_gender_agg
         """
         df_player = self.raw_data_dict['df_player']
         df_gender_agg = df_player.groupby('gender').agg(n_players=('player_uid', 'count'))
         df_gender_agg['percent_player'] = (df_gender_agg / df_player.shape[0]).round(2)
+
         self.prepared_data_dict['game_participation'].update({'df_gender_agg': df_gender_agg})
 
     def age(self):
+        """
+        Update game participation dict with df_age_agg
+        """
         df_player = self.raw_data_dict['df_player']
         df_age_agg = df_player.groupby('classe_age', as_index=False).agg(n_players=('player_uid', 'count'))
         df_age_agg['percent_player'] = (df_age_agg['n_players'] / df_player.shape[0] * 100).round(0)
+
         self.prepared_data_dict['game_participation'].update({'df_age_agg': df_age_agg})
