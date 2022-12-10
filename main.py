@@ -5,7 +5,8 @@ import plotly.io as pio
 from tools.load_data import load_data
 
 from config.plotly_styling import custom_template
-from tools import data_preparator as dp, graph_maker as gm, pdf
+from tools import data_preparator as dp, graph_maker as gm
+from tools.pdf import CustomPDF
 
 
 def main():
@@ -36,7 +37,18 @@ def main():
     gm_gpgm.plot_bar_age()
 
     # Generate PDF
-    pdf.generate_pdf(prepared_data_dict, temp_dir)
+    pdf = CustomPDF(prepared_data_dict, temp_dir)
+    pdf.initiate_pdf()
+    pdf.background()
+    pdf.game_name()
+    pdf.game_dates()
+    pdf.logo()
+    pdf.n_participants_and_registrants()
+    pdf.participation_rate()
+    pdf.gender()
+    pdf.teams()
+    pdf.age()
+    pdf.save_pdf()
 
     # Remove temp directory
     shutil.rmtree(path=temp_dir, ignore_errors=True)

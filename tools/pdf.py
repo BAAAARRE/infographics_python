@@ -3,6 +3,11 @@ from PIL import Image
 
 
 class CustomPDF(FPDF):
+    def __init__(self, data_dict, temp_dir):
+        super().__init__()
+        self.data_dict = data_dict
+        self.temp_dir = temp_dir
+
     def initiate_pdf(self):
         self.add_font('Montserrat_medium', '', 'assets/fonts/Montserrat-Medium.ttf', uni=True)
         self.add_font('CriteriaCF_bold', '', 'assets/fonts/criteria-cf-bold.ttf', uni=True)
@@ -10,17 +15,22 @@ class CustomPDF(FPDF):
 
         self.add_page(orientation='P', format=(248, 143))
 
-    def game_name(self, title):
+    def background(self):
+        self.image('assets/images/background.png', x=9, y=4, w=230)
+
+    def game_name(self):
+        name = self.data_dict['header']['name']
         self.set_xy(0, 0)
         self.set_font("CriteriaCF_bold", size=20)
-        self.cell(0, 35, title, align='C')
+        self.cell(0, 35, name, align='C')
 
-    def game_dates(self, full_date):
+    def game_dates(self):
+        full_date = self.data_dict['header']['full_date']
         self.set_xy(0, 0)
         self.set_font("Montserrat_medium", size=16)
         self.cell(0, 65, full_date, align='C')
 
-    def fix_logo(self):
+    def logo(self):
         image_url = 'assets/images/python_logo.png'
         im = Image.open(image_url)
         x, y = im.size
@@ -41,12 +51,15 @@ class CustomPDF(FPDF):
             y_axis = margin / 2
             self.image(x=182, y=y_axis, name=image_url, w=width, h=max_place)
 
-    def nb_participants_subscribes(self, nb_participants, nb_subscribes):
+    def n_participants_and_registered(self):
+        n_participants = self.data_dict['game_participation']['n_participants']
+        n_registered = self.data_dict['game_participation']['n_registered']
+
         self.set_font("CriteriaCF_bold", size=10)
         self.set_text_color(16, 194, 220)
 
         self.set_xy(x=28, y=82.9)
-        str_participants = f"{str(nb_participants)} participants /"
+        str_participants = f"{str(n_participants)} participants /"
         self.cell(w=1, txt=str_participants, align='L')
 
         self.set_font("Montserrat_medium", size=10)
@@ -55,37 +68,24 @@ class CustomPDF(FPDF):
         x_participants = self.get_x()
         len_str_participants = self.get_string_width(str_participants)
         self.set_xy(x=x_participants + len_str_participants + 2, y=82.9)
-        self.cell(w=1, txt=f"{str(nb_subscribes)} registered", align='L')
+        self.cell(w=1, txt=f"{str(n_registered)} registered", align='L')
 
+    def participation_rate(self):
+        self.image(f'{self.temp_dir}/participation_rate.png', x=24.6, y=94, w=72)
 
-    def picto_gender(self):
+    def gender(self):
         self.image('assets/images/genders_picto.png', x=118, y=72, w=11)
+        self.image(f'{self.temp_dir}/gender.png', x=91.3, y=55, w=64)
 
-    def teams(self, nb_teams):
+    def teams(self):
+        n_teams = self.data_dict['game_participation']['n_teams']
         self.set_font("CriteriaCF_bold", size=30)
         self.set_text_color(16, 194, 220)
         self.set_xy(x=123, y=116)
-        self.cell(w=1, txt=str(nb_teams), align='C')
+        self.cell(w=1, txt=str(n_teams), align='C')
 
+    def age(self):
+        self.image(f'{self.temp_dir}/age.png', x=150, y=76, w=72)
 
-def generate_pdf(data_dict, temp_dir):
-    pdf = CustomPDF(unit='mm')
-    pdf.initiate_pdf()
-    pdf.image('assets/images/background.png', x=9, y=4, w=230)
-
-    # Header
-    pdf.game_name(data_dict['header']['name'])
-    pdf.game_dates(data_dict['header']['full_date'])
-    pdf.fix_logo()
-
-    # Game participation
-    pdf.nb_participants_subscribes(data_dict['game_participation']['n_participants'],
-                                   data_dict['game_participation']['n_subscribed'])
-    pdf.image('{}/participation_rate.png'.format(temp_dir), x=24.6, y=94, w=72)
-    pdf.picto_gender()
-    pdf.image('{}/genders_picto.png'.format(temp_dir), x=91.3, y=55, w=64)
-    pdf.teams(data_dict['game_participation']['n_teams'])
-    pdf.image('{}/age.png'.format(temp_dir), x=150, y=76, w=72)
-
-    # Export PDF
-    pdf.output('infographic_example.pdf')
+    def save_pdf(self):
+        self.output('infographic_example.pdf')
