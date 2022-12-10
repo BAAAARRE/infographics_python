@@ -72,7 +72,7 @@ class GameParticipationGraphMaker:
             textfont=dict(size=50, color='black'), automargin=False
         )
         fig.update_layout(showlegend=False, paper_bgcolor='rgba(0, 0, 0, 0)')
-        fig.write_image(os.path.join(self.temp_dir, "genders_picto.png"), scale=4, engine=self.engine_plotly)
+        fig.write_image(os.path.join(self.temp_dir, "gender.png"), scale=4, engine=self.engine_plotly)
 
     def plot_bar_age(self):
         """
