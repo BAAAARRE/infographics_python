@@ -8,10 +8,9 @@ from config.plotly_styling import custom_template
 from tools import data_preparator as dp, graph_maker as gm, pdf
 
 
-
 def main():
     # Set and create save dir for temp graphs
-    temp_dir = '{}/temp'.format(os.getcwd())
+    temp_dir = f'{os.getcwd()}/temp'
     os.makedirs(temp_dir, exist_ok=True)
 
     # Plotly styling
