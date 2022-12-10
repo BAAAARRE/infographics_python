@@ -24,17 +24,17 @@ class GameParticipationPreparator:
 
     def participation(self):
         """
-        Create game participation dict with n_subscribed, n_participants, participation_rate and n_teams, then add it to prepared data
+        Create game participation dict with n_registered, n_participants, participation_rate and n_teams, then add it to prepared data
         """
         df_game = self.raw_data_dict['df_game']
         df_player = self.raw_data_dict['df_player']
 
-        n_subscribed = df_player.shape[0]
+        n_registered = df_player.shape[0]
         n_participants = df_player[df_player['has_participated'] == 1].shape[0]
-        participation_rate = int(round(n_participants / n_subscribed, 2) * 100)
+        participation_rate = int(round(n_participants / n_registered, 2) * 100)
         n_teams = df_game['n_teams'][0]
 
-        self.prepared_data_dict['game_participation'] = {'n_subscribed': n_subscribed, 'n_participants': n_participants,
+        self.prepared_data_dict['game_participation'] = {'n_registered': n_registered, 'n_participants': n_participants,
                                                          'participation_rate': participation_rate, 'n_teams': n_teams}
 
     def gender(self):
