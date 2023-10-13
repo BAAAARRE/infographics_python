@@ -88,4 +88,4 @@ class CustomPDF(FPDF):
         self.image(f'{self.temp_dir}/age.png', x=150, y=76, w=72)
 
     def save_pdf(self):
-        self.output('infographic_example.pdf')
+        self.output('infographic_you_made.pdf')
