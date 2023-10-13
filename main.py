@@ -36,7 +36,7 @@ def main():
     gm_gp.plot_bar_age()
 
     # Generate PDF
-    pdf_gp = pdf.GameParticipationPdf(prepared_data_dict, temp_dir)
+    pdf_gp = pdf.CustomPDF(prepared_data_dict, temp_dir)
     pdf_gp.initiate_pdf()
     pdf_gp.background()
     pdf_gp.game_name()
