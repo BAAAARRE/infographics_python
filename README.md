@@ -9,21 +9,30 @@ Clone the project :
 ```
 git clone https://github.com/BAAAARRE/infographics_python.git
 ```
-Access the folder:
+Access the folder :
 ```
 cd infographics_python
 ```
 Create a virtual environment :
 ```
-(Unix /Linux): python3.x -m venv
-(windows): python -m venv
+(Linux/MacOS): python3 -m venv venv
+(Windows): python -m venv
 ```
-Activate the environment: 
+Activate the environment : 
 ```
-(Unix/Linux): source venv/bin/activate
-(windows): venv\Scripts\activate
+(Linux/MacOS): source venv/bin/activate
+(Windows): venv\Scripts\activate
 ```
-Run the script: 
+Install packages :
 ```
-python main.py
+(Linux/MacOS): cat requirements.txt | xargs -n 1 pip install
+(Windows): pip install -r requirements.txt
+```
+Install fonts :
+Go to ```assets/fonts/```, open and install all fonts
+
+Run the script : 
+```
+(Linux/MacOS): python3 main.py
+(Windows): python main.py
 ```
