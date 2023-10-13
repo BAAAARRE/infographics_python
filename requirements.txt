@@ -2,6 +2,7 @@ defusedxml==0.7.1
 fonttools==4.38.0
 fpdf2==2.5.7
 kaleido==0.1.0.post1
+kaleido
 numpy==1.23.4
 pandas==1.5.1
 Pillow==9.3.0
