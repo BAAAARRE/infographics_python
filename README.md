@@ -1,7 +1,9 @@
-# infographics_python
+# Infographics with Python
+## 🔍 Overview
+This is the repositoriy for the medium article I wrote: [Automate infographics production with Python, Pandas, Plotly and PyFPDF](https://github.com/BAAAARRE/infographics_python).
 
-## Execution
-Prerequisite : Have installed on your machine [Python](https://www.python.org/downloads/) (check add to path during installation) and [Git](https://git-scm.com/)
+## 🛠 Execution
+Prerequisite : Have installed on your machine [Python](https://www.python.org/downloads/) (version under 3.12, and check add to path during installation) and [Git](https://git-scm.com/downloads)
 
 Open a command interpreter and run the following commands: 
 
@@ -16,7 +18,7 @@ cd infographics_python
 Create a virtual environment :
 ```
 (Linux/MacOS): python3 -m venv venv
-(Windows): python -m venv
+(Windows): python -m venv venv
 ```
 Activate the environment : 
 ```
