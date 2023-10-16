@@ -1,6 +1,6 @@
 # Infographics with Python
 ## 🔍 Overview
-This is the repositoriy for the medium article I wrote: [Automate infographics production with Python, Pandas, Plotly and PyFPDF](https://github.com/BAAAARRE/infographics_python).
+This is the repositoriy for the medium article I wrote: [Automate infographics production with Python, Pandas, Plotly and PyFPDF](https://medium.com/@florent_barre/automate-infographics-production-with-python-pandas-plotly-and-pyfpdf-a4c977f2e891).
 
 ## 🛠 Execution
 Prerequisite : Have installed on your machine [Python](https://www.python.org/downloads/) (version under 3.12, and check add to path during installation) and [Git](https://git-scm.com/downloads)
